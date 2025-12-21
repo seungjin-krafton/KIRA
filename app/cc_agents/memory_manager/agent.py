@@ -103,7 +103,7 @@ async def call_memory_manager(
 
     options = ClaudeAgentOptions(
         system_prompt=system_prompt,
-        model="sonnet",
+        model=settings.SONNET_MODEL,
         permission_mode="bypassPermissions",
         allowed_tools=["*"],
         disallowed_tools=[

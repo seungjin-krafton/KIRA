@@ -513,7 +513,7 @@ async def call_dynamic_suggester() -> str:
             "slack": create_slack_mcp_server()
         },
         system_prompt=system_prompt,
-        model="sonnet",
+        model=settings.SONNET_MODEL,
         permission_mode="bypassPermissions",
         allowed_tools=["*"],
         disallowed_tools=[

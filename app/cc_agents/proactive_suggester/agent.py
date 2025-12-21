@@ -126,7 +126,7 @@ async def call_proactive_suggester(
             "confirm": create_confirm_mcp_server(),
         },
         system_prompt=system_prompt,
-        model="sonnet",
+        model=settings.SONNET_MODEL,
         permission_mode="bypassPermissions",
         allowed_tools=[
             "mcp__confirm__request_confirmation"

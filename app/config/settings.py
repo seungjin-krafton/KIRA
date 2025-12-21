@@ -13,6 +13,8 @@ class Settings(BaseSettings):
 
     # 모델명 (Vertex AI 사용 여부에 따라 동적으로 설정)
     HAIKU_MODEL: str = "haiku"
+    SONNET_MODEL: str = "sonnet"
+    OPUS_MODEL: str = "opus"
 
     # SLACK 관련
     SLACK_BOT_TOKEN: str = ""
@@ -141,7 +143,10 @@ class Settings(BaseSettings):
             os.environ['ANTHROPIC_VERTEX_PROJECT_ID'] = "dl-service-dev"
             os.environ['ANTHROPIC_VERTEX_REGION'] = 'us-east5'
             os.environ['CLAUDE_CODE_USE_VERTEX'] = "1"
-            self.HAIKU_MODEL = "claude-haiku-4-5@20251001"
+            # Pydantic v2 BaseSettings는 frozen이므로 object.__setattr__ 사용
+            object.__setattr__(self, 'HAIKU_MODEL', "claude-haiku-4-5@20251001")
+            object.__setattr__(self, 'SONNET_MODEL', "claude-sonnet-4-5@20250929")
+            object.__setattr__(self, 'OPUS_MODEL', "claude-opus-4-5@20251101")
 
 @lru_cache
 def get_settings() -> Settings:

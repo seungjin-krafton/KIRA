@@ -18,6 +18,7 @@ from claude_agent_sdk import (
 from app.cc_tools.waiting_answer.waiting_answer_tools import create_waiting_answer_mcp_server
 from app.cc_tools.slack.slack_tools import create_slack_mcp_server
 from app.cc_utils.waiting_answer_db import get_user_pending_requests
+from app.config.settings import get_settings
 
 
 def create_system_prompt() -> str:
@@ -95,6 +96,7 @@ async def call_answer_aggregator(
 
     # 2. LLM에게 판단 요청
     system_prompt = create_system_prompt()
+    settings = get_settings()
 
     options = ClaudeAgentOptions(
         mcp_servers={
@@ -102,7 +104,7 @@ async def call_answer_aggregator(
             "slack": create_slack_mcp_server(),
         },
         system_prompt=system_prompt,
-        model="sonnet",
+        model=settings.SONNET_MODEL,
         permission_mode="bypassPermissions",
         allowed_tools=[
             "mcp__waiting_answer__update_request",
